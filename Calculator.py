@@ -46,6 +46,7 @@ class Calculator:
         self.create_clear_button()
         self.create_delete_button()
         self.create_equals_button()
+        self.create_comma_button()
 
     def create_display_labels(self):
         total_label = tk.Label(self.display_frame, text=self.total_expression, anchor=tk.E,
@@ -105,12 +106,26 @@ class Calculator:
     def create_clear_button(self):
         button = tk.Button(self.buttons_frame, text="clr", bg=OFF_WHITE, fg=LABEL_COLOR,
                            font=DEFAULT_FONT_STYLE, borderwidth=0, command=self.clear)
-        button.grid(row=1, column=6, rowspan=3, sticky=tk.NSEW)
+        button.grid(row=1, column=6, rowspan=2, sticky=tk.NSEW)
+
+# =========================== COMMA ===========================
+    def comma(self):
+        self.current_expression += ","
+        self.update_label()
+
+    def create_comma_button(self):
+        button = tk.Button(self.buttons_frame, text=",", bg=OFF_WHITE, fg=LABEL_COLOR,
+                           font=DEFAULT_FONT_STYLE, borderwidth=0, command=self.comma)
+        button.grid(row=3, column=6, rowspan=1, sticky=tk.NSEW)
 
 # =========================== DELETE ===========================
+    def delete(self):
+        self.current_expression = self.current_expression[:-1]
+        self.update_label()
+
     def create_delete_button(self):
         button = tk.Button(self.buttons_frame, text="del", bg=OFF_WHITE, fg=LABEL_COLOR,
-                           font=DEFAULT_FONT_STYLE, borderwidth=0)
+                           font=DEFAULT_FONT_STYLE, borderwidth=0,  command=self.delete)
         button.grid(row=4, column=6, rowspan=2, sticky=tk.NSEW)
 
 # =========================== EQUALS ===========================
@@ -126,6 +141,8 @@ class Calculator:
         button = tk.Button(self.buttons_frame, text="=", bg=OFF_WHITE, fg=LABEL_COLOR,
                            font=DEFAULT_FONT_STYLE, borderwidth=0, command=self.evaluate)
         button.grid(row=5, column=3, sticky=tk.NSEW)
+
+# ================================================================
 
     def create_buttons_frame(self):
         frame = tk.Frame(self.window)
